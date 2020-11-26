@@ -3,10 +3,16 @@ var fetch = require("node-fetch");
 var app = express();
 FIB_ENDPOINT = process.env.FIB_ENDPOINT || "http://localhost:8000/fib";
 
+/**
+ * Internal health check endpoint.
+ */
 app.get("/health", async (req, res) => {
   res.send(process.env.HEALTH_TOKEN == "bar" ? "OK" : "KO");
 });
 
+/**
+ * Public endpoint.
+ */
 app.get("/hello", async (req, res) => {
   res.send("Hello World from Express!");
 });
