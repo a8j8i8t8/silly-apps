@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>Random fibonacci client</title>
+    </head>
+    <body>
+        <button onclick="getFib();">Give me a random fib</button>
+        <p id="response"></p>
+        <script>
+            output = document.getElementById("response");
+            function getFib() {
+                output.innerText = "Loading...";
+                const xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == XMLHttpRequest.DONE) {
+                        output.innerText = xhr.responseText;
+                    }
+                }
+                xhr.open('GET', '/express/random_fib', true);
+                xhr.send(null);
+            }
+        </script>
+    </body>
+</html>

@@ -1,5 +1,6 @@
-import os
+import os, time
 from flask import Flask, request
+from random import random
 
 app = Flask(__name__)
 
@@ -29,6 +30,9 @@ def fib(n):
     """
     Gloriously inefficient fibonacci function
     """
+    if random() < 0.1:
+        unfortunate_course_of_events()
+
     if n<0: 
         raise ValueError("Incorrect input") 
     elif n==0: 
@@ -37,6 +41,11 @@ def fib(n):
         return 1
     else: 
         return fib(n-1)+fib(n-2) 
+
+def unfortunate_course_of_events():
+    print("Something very unfortunate happened. I'm going to hang forever.")
+    while True:
+        time.sleep(10)
 
 if __name__ == '__main__':
     app.run()
