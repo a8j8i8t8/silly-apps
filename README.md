@@ -2,7 +2,7 @@
 
 Some silly apps to play with.
 
-## Archicture
+## Architecture
 
 With some blanks.
 
