@@ -1,5 +1,7 @@
 # A simple flask app
 
+Simple but slow, doing things in an inefficient manner and sometimes even hangs completely.
+
 To run it with gunicorn:
 
 ```
