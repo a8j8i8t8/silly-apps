@@ -6,7 +6,7 @@ replicaCount: 1
 maxReplicaCount: 4
 
 image:
-  repository: gitlab.com/a8j8i8t8/silly-apps/web
+  repository: registry.gitlab.com/a8j8i8t8/silly-apps/web
   pullPolicy: Always
 
 nameOverride: ""
