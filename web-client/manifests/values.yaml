@@ -1,0 +1,66 @@
+# Default values for app.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+maxReplicaCount: 4
+
+image:
+  repository: gitlab.com/a8j8i8t8/silly-apps/web
+  pullPolicy: Always
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: web
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext:
+  runAsUser: 101
+  runAsNonRoot: true
+
+service:
+  type: ClusterIP
+  port: 8080
+
+resources:
+  limits:
+    cpu: 1m
+    memory: 20Mi
+  requests:
+    cpu: 0.5m
+    memory: 10Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 15
+  failureThreshold: 5
+  httpPath: "/"
+  periodSeconds: 10
+  timeoutSeconds: 60
+
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 15
+  failureThreshold: 5
+  httpPath: "/"
+  periodSeconds: 60
+  timeoutSeconds: 60
+
+hostName: silly.app.ajit.nl

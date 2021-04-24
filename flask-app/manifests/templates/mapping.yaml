@@ -1,0 +1,25 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: List
+items:
+- apiVersion: getambassador.io/v2
+  kind: Mapping
+  metadata:
+    name: {{ include "app.fullname" . }}-hello
+    labels:
+      {{- include "app.labels" . | nindent 4 }}
+  spec:
+    prefix: /{{ include "app.fullname" . }}/hello
+    host: {{ .Values.hostName }}
+    rewrite: /hello
+    service: '{{ include "app.fullname" . }}.{{ .Release.Namespace }}:{{ .Values.service.port }}'
+- apiVersion: getambassador.io/v2
+  kind: Mapping
+  metadata:
+    name: {{ include "app.fullname" . }}-health
+    labels:
+      {{- include "app.labels" . | nindent 4 }}
+  spec:
+    prefix: /{{ include "app.fullname" . }}/health
+    host: {{ .Values.hostName }}
+    rewrite: /health
+    service: '{{ include "app.fullname" . }}.{{ .Release.Namespace }}:{{ .Values.service.port }}'
