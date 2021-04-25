@@ -132,7 +132,9 @@ scan:web:app:
   stage: deploy
   cache: {}
   when: manual
-  image: alpine/helm
+  image:
+    name: alpine/helm
+    entrypoint: [""]
   script:
     - helm package ${MANIFESTS_PATH} --app-version ${CI_COMMIT_REF_NAME} --version ${CI_COMMIT_REF_NAME}
     - helm upgrade
