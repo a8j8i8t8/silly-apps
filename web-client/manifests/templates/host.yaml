@@ -1,0 +1,11 @@
+apiVersion: getambassador.io/v2
+kind: Host
+metadata:
+  name: {{ include "app.fullname" . }}-host
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+spec:
+  hostname: {{ .Values.hostName }}
+  acmeProvider:
+    authority: {{ .Values.acmeProvider.authority }}
+    email: {{ .Values.acmeProvider.email }}

@@ -15,14 +15,14 @@ RUN pip install --upgrade pip \
 FROM base
 # Make sure we use the virtualenv:
 ENV PATH="/opt/venv/bin:$PATH"
-COPY --from=builder /opt/venv /opt/venv
-COPY . /app
-WORKDIR /app
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install dumb-init -y \
     && apt-get clean \
     && apt-get autoclean
+COPY --from=builder /opt/venv /opt/venv
+COPY . /app
+WORKDIR /app
 EXPOSE 8000
 USER nobody
 CMD ["dumb-init", "gunicorn", "--bind", "0.0.0.0:8000", "-w 4", "app:app"]

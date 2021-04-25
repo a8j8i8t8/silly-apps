@@ -64,4 +64,4 @@ readinessProbe:
   timeoutSeconds: 60
 
 healthToken: foo
-hostName: silly.app.ajit.nl
+hostName: silly.ajiteb.nl

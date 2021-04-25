@@ -63,4 +63,7 @@ readinessProbe:
   periodSeconds: 60
   timeoutSeconds: 60
 
-hostName: silly.app.ajit.nl
+hostName: silly.ajiteb.nl
+acmeProvider:
+  authority: https://acme-v02.api.letsencrypt.org/directory
+  email: ajit@domain.nl
