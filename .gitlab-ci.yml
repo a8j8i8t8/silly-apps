@@ -153,7 +153,7 @@ deploy:express:app:
     APP_NAME: express
   environment:
     name: development
-    url: https://silly.ajiteb.nl/express/hello
+    url: https://silly.testgeophy.nl/express/hello
   before_script:
     - cd express-app
 
@@ -164,7 +164,7 @@ deploy:flask:app:
     APP_NAME: flask
   environment:
     name: development
-    url: https://silly.ajiteb.nl/flask/hello
+    url: https://silly.testgeophy.nl/flask/hello
   before_script:
     - cd flask-app
 
@@ -175,6 +175,6 @@ deploy:web:app:
     APP_NAME: web
   environment:
     name: development
-    url: https://silly.ajiteb.nl/
+    url: https://silly.testgeophy.nl/
   before_script:
     - cd web-client

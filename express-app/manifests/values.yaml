@@ -65,4 +65,4 @@ readinessProbe:
 
 healthToken: bar
 fibEndpoint: http://flask:8000/fib
-hostName: silly.ajiteb.nl
+hostName: silly.testgeophy.nl

@@ -63,7 +63,7 @@ readinessProbe:
   periodSeconds: 60
   timeoutSeconds: 60
 
-hostName: silly.ajiteb.nl
+hostName: silly.testgeophy.nl
 acmeProvider:
   authority: https://acme-v02.api.letsencrypt.org/directory
   email: ajit@domain.nl
