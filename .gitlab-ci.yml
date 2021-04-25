@@ -134,7 +134,7 @@ scan:web:app:
   when: manual
   image: alpine/helm
   script:
-    - helm package manifests/ --app-version ${CI_COMMIT_REF_NAME} --version ${CI_COMMIT_REF_NAME}
+    - helm package ${MANIFESTS_PATH} --app-version ${CI_COMMIT_REF_NAME} --version ${CI_COMMIT_REF_NAME}
     - helm upgrade
       --install ${APP_NAME} ${APP_NAME}-${CI_COMMIT_REF_NAME}.tgz
       --namespace ${NAMESPACE}
@@ -151,30 +151,27 @@ deploy:express:app:
   variables:
     NAMESPACE: backend
     APP_NAME: express
+    MANIFESTS_PATH: express-app/manifests/
   environment:
     name: development
     url: https://silly.testgeophy.nl/express/hello
-  before_script:
-    - cd express-app
 
 deploy:flask:app:
   <<: *deploy
   variables:
     NAMESPACE: backend
     APP_NAME: flask
+    MANIFESTS_PATH: flask-app/manifests/
   environment:
     name: development
     url: https://silly.testgeophy.nl/flask/hello
-  before_script:
-    - cd flask-app
 
 deploy:web:app:
   <<: *deploy
   variables:
     NAMESPACE: frontend
     APP_NAME: web
+    MANIFESTS_PATH: web-client/manifests/
   environment:
     name: development
     url: https://silly.testgeophy.nl/
-  before_script:
-    - cd web-client
