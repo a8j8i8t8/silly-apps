@@ -35,10 +35,10 @@ service:
 
 resources:
   limits:
-    cpu: 10m
+    cpu: 100m
     memory: 128Mi
   requests:
-    cpu: 1m
+    cpu: 50m
     memory: 50Mi
 
 nodeSelector: {}
@@ -64,4 +64,4 @@ readinessProbe:
   timeoutSeconds: 60
 
 healthToken: foo
-hostName: silly.testgeophy.nl
+hostName: silly.ajiteb.nl

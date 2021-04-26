@@ -64,6 +64,8 @@ build:web:app:
 # Test docker images
 
 test:express:app:
+    needs:
+      - build:express:app
     variables:
       GIT_STRATEGY: none
     image: curlimages/curl
@@ -75,6 +77,8 @@ test:express:app:
       - curl -sI "http://express:3000/hello"
 
 test:flask:app:
+    needs:
+      - build:flask:app
     variables:
       GIT_STRATEGY: none
     image: curlimages/curl
@@ -86,6 +90,8 @@ test:flask:app:
       - curl -sI "http://flask:8000/hello"
 
 test:web:app:
+    needs:
+      - build:web:app
     variables:
       GIT_STRATEGY: none
     image: curlimages/curl
@@ -112,16 +118,22 @@ test:web:app:
         container_scanning: gl-container-scanning-report.json
 
 scan:express:app:
+    needs:
+      - build:express:app
     <<: *scan
     variables:
       IMAGE_PATH: ${CI_REGISTRY_IMAGE}/express:${CI_COMMIT_REF_NAME}
 
 scan:flask:app:
+    needs:
+      - build:flask:app
     <<: *scan
     variables:
       IMAGE_PATH: ${CI_REGISTRY_IMAGE}/flask:${CI_COMMIT_REF_NAME}
 
 scan:web:app:
+    needs:
+      - build:web:app
     <<: *scan
     variables:
       IMAGE_PATH: ${CI_REGISTRY_IMAGE}/web:${CI_COMMIT_REF_NAME}
@@ -150,30 +162,36 @@ scan:web:app:
     
 deploy:express:app:
   <<: *deploy
+  needs:
+    - test:express:app
   variables:
     NAMESPACE: backend
     APP_NAME: express
     MANIFESTS_PATH: express-app/manifests/
   environment:
     name: development
-    url: https://silly.testgeophy.nl/express/hello
+    url: https://silly.ajiteb.nl/express/hello
 
 deploy:flask:app:
   <<: *deploy
+  needs:
+    - test:flask:app
   variables:
     NAMESPACE: backend
     APP_NAME: flask
     MANIFESTS_PATH: flask-app/manifests/
   environment:
     name: development
-    url: https://silly.testgeophy.nl/flask/hello
+    url: https://silly.ajiteb.nl/flask/hello
 
 deploy:web:app:
   <<: *deploy
+  needs:
+    - test:web:app
   variables:
     NAMESPACE: frontend
     APP_NAME: web
     MANIFESTS_PATH: web-client/manifests/
   environment:
     name: development
-    url: https://silly.testgeophy.nl/
+    url: https://silly.ajiteb.nl/
