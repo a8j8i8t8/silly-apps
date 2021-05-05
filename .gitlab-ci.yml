@@ -70,10 +70,10 @@ build:web:app:
       - apk --update add yamllint
     script:
       - helm lint ${MANIFESTS_PATH}
-      - helm template ${MANIFESTS_PATH} --version ${CI_COMMIT_REF_NAME} > "${APP_NAME}-{CI_COMMIT_REF_NAME}".yaml
-      - yamllint "${APP_NAME}-{CI_COMMIT_REF_NAME}".yaml
+      - helm template ${MANIFESTS_PATH} --version ${CI_COMMIT_REF_NAME} > "${APP_NAME}-${CI_COMMIT_REF_NAME}".yaml
+      - yamllint "${APP_NAME}-${CI_COMMIT_REF_NAME}".yaml
     artifacts:
-      name: "${APP_NAME}-{CI_COMMIT_REF_NAME}"
+      name: "${APP_NAME}-${CI_COMMIT_REF_NAME}"
       paths:
         - ${APP_NAME}-${CI_COMMIT_REF_NAME}.tgz
       when: on_success
@@ -190,7 +190,7 @@ scan:web:app:
       --set gitlab.env=$CI_ENVIRONMENT_SLUG
       --set gitlab.app=$CI_PROJECT_PATH_SLUG
   artifacts:
-    name: "${APP_NAME}-{CI_COMMIT_REF_NAME}"
+    name: "${APP_NAME}-${CI_COMMIT_REF_NAME}"
     paths:
       - ${APP_NAME}-${CI_COMMIT_REF_NAME}.tgz
     when: on_success
