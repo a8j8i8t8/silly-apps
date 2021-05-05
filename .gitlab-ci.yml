@@ -60,6 +60,41 @@ build:web:app:
       - docker push ${CI_REGISTRY_IMAGE}/web:${CI_COMMIT_REF_NAME}
       - docker push ${CI_REGISTRY_IMAGE}/web:latest
       - docker_logout
+
+.helmtest: &helmtest
+    image:
+      name: alpine/helm
+      entrypoint: [""]
+    stage: build
+    before_script:
+      - apk --update add yamllint
+    script:
+      - helm lint ${MANIFESTS_PATH}
+      - helm template ${MANIFESTS_PATH} --app-version ${CI_COMMIT_REF_NAME} --version ${CI_COMMIT_REF_NAME} > "${APP_NAME}-{CI_COMMIT_REF_NAME}".yaml
+      - yamllint "${APP_NAME}-{CI_COMMIT_REF_NAME}".yaml
+  artifacts:
+    name: "${APP_NAME}-{CI_COMMIT_REF_NAME}"
+    paths:
+      - ${APP_NAME}-${CI_COMMIT_REF_NAME}.tgz
+    when: on_success
+
+helmtest:express:app:
+  <<: *helmtest
+  variables:
+    APP_NAME: express
+    MANIFESTS_PATH: express-app/manifests/
+
+helmtest:flask:app:
+  <<: *helmtest
+  variables:
+    APP_NAME: flask
+    MANIFESTS_PATH: flask-app/manifests/
+
+helmtest:web:app:
+  <<: *helmtest
+  variables:
+    APP_NAME: web
+    MANIFESTS_PATH: web-client/manifests/
 # -----------------------------------------------------------------------------------
 # Test docker images
 
