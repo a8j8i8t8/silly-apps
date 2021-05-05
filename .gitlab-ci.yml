@@ -72,11 +72,11 @@ build:web:app:
       - helm lint ${MANIFESTS_PATH}
       - helm template ${MANIFESTS_PATH} --app-version ${CI_COMMIT_REF_NAME} --version ${CI_COMMIT_REF_NAME} > "${APP_NAME}-{CI_COMMIT_REF_NAME}".yaml
       - yamllint "${APP_NAME}-{CI_COMMIT_REF_NAME}".yaml
-  artifacts:
-    name: "${APP_NAME}-{CI_COMMIT_REF_NAME}"
-    paths:
-      - ${APP_NAME}-${CI_COMMIT_REF_NAME}.tgz
-    when: on_success
+    artifacts:
+      name: "${APP_NAME}-{CI_COMMIT_REF_NAME}"
+      paths:
+        - ${APP_NAME}-${CI_COMMIT_REF_NAME}.tgz
+      when: on_success
 
 helmtest:express:app:
   <<: *helmtest
