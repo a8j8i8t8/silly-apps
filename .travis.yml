@@ -1,24 +1,19 @@
 language: generic
-
 python:
-  - '3.8'
-
+- '3.8'
 services:
-  - docker
-
+- docker
 stages:
-  - build
-  - test
-  - deploy
-
+- build
+- test
+- deploy
+sudo: true
 jobs:
   include:
-    ### PULL REQUESTS ###
-
-    - stage: build
-      name: Build and push ALL images
-      if: branch = master
-      before_script:
-        - cd express-app
-      script:
-        - DOCKER_BUILDKIT=1 docker build -t express:latest .
+  - stage: build
+    name: Build and push ALL images
+    if: branch = master
+    before_script:
+    - cd express-app
+    script:
+    - DOCKER_BUILDKIT=1 docker build -t express:latest .
